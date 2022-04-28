@@ -10,9 +10,6 @@ import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 contract PSDAPresale is Ownable, ReentrancyGuard {
   using SafeERC20 for IERC20;
 
-  /// @notice Event emitted when owner has set starting time.
-  event StartingTimeSet(uint256 time);
-
   /// @notice Event emitted when user purchased the tokens.
   event Purchased(address user, uint256 amount, uint256 total);
 
@@ -66,8 +63,6 @@ contract PSDAPresale is Ownable, ReentrancyGuard {
    */
   function setStartingTime(uint256 _newTime) external onlyOwner {
     startingTime = _newTime;
-
-    emit StartingTimeSet(_newTime);
   }
 
   /**
@@ -79,7 +74,6 @@ contract PSDAPresale is Ownable, ReentrancyGuard {
 
   function purchase(uint256 _amount, bytes32[] calldata _merkleProof)
     external
-    payable
     callerIsUser
     nonReentrant
   {
