@@ -3,6 +3,7 @@ pragma solidity ^0.8.6;
 
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
+import "@openzeppelin/contracts/utils/cryptography/MerkleProof.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 
@@ -23,6 +24,9 @@ contract PSDAPresale is Ownable, ReentrancyGuard {
 
   mapping(address => uint256) public presaleCounter;
 
+  // declare bytes32 variables to store root (a hash)
+  bytes32 public merkleRoot;
+
   modifier isValidAddress(address _address) {
     require(_address != address(0), "pSDA Presale: INVALID ADDRESS");
     _;
@@ -33,18 +37,25 @@ contract PSDAPresale is Ownable, ReentrancyGuard {
     address _multiSig,
     uint256 _startingTime,
     uint256 _maxDaiPerInvestor,
-    uint256 _maxDai
+    uint256 _maxDai,
+    bytes32 _merkleRoot
   ) isValidAddress(_daiToken) isValidAddress(_multiSig) {
     daiToken = IERC20(_daiToken);
     multiSig = _multiSig;
     maxDaiPerInvestor = _maxDaiPerInvestor;
     startingTime = _startingTime;
     maxDai = _maxDai;
+    merkleRoot = _merkleRoot;
   }
 
   modifier callerIsUser() {
     require(tx.origin == msg.sender, "The caller is another contract");
     _;
+  }
+
+  // function to set the root of Merkle Tree
+  function setMerkleRoot(bytes32 _root) external onlyOwner {
+    merkleRoot = _root;
   }
 
   /**
@@ -61,13 +72,20 @@ contract PSDAPresale is Ownable, ReentrancyGuard {
     multiSig = _newAddress;
   }
 
-  function purchase(uint256 _amount) external callerIsUser nonReentrant {
+  function purchase(uint256 _amount, bytes32[] calldata _merkleProof)
+    external
+    callerIsUser
+    nonReentrant
+  {
+    bytes32 leaf = keccak256(abi.encodePacked(msg.sender));
+
     require(block.timestamp >= startingTime, "Not time to purchase");
     require(
       presaleCounter[msg.sender] + _amount <= maxDaiPerInvestor,
       "Exceeded max value to purchase"
     );
     require(totalDai + _amount <= maxDai, "Purchase would exceed max DAI");
+    require(MerkleProof.verify(_merkleProof, merkleRoot, leaf), "Invalid merkle proof");
 
     daiToken.transferFrom(msg.sender, multiSig, _amount);
 
