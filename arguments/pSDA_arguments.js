@@ -6,5 +6,4 @@ module.exports = [
   BigNumber.from("1651190400").toBigInt(), // Starting Time
   BigNumber.from("1000000").toBigInt(), // Max Dai Amount Per a Investor
   BigNumber.from("3500000").toBigInt(), // Max Expected Amount Of DAI
-  "0x22c8074ab7ff8beb3fbd64b486c5dcc29b84f844fe381629445a9d410ac71ad1", // Merkle Root hex value
 ]
