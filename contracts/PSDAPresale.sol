@@ -41,13 +41,15 @@ contract Collection is Ownable, ReentrancyGuard {
     address _multiSig, //0x6693002C49AF6d485517A443650AB76B88298fE1
     uint256 _startingTime, //1651190400
     uint256 _maxDaiPerInvestor, //1000000
-    uint256 _maxDai //3500000
+    uint256 _maxDai, //3500000
+    bytes32 _merkleRoot
   ) isValidAddress(_daiToken) isValidAddress(_multiSig) {
     daiToken = IERC20(_daiToken);
     multiSig = _multiSig;
     maxDaiPerInvestor = _maxDaiPerInvestor;
     startingTime = _startingTime;
     maxDai = _maxDai;
+    merkleRoot = _merkleRoot;
   }
 
   modifier callerIsUser() {
