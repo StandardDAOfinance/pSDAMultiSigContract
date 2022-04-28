@@ -21,7 +21,6 @@ contract PSDAPresale is Ownable, ReentrancyGuard {
   address public multiSig;
 
   uint256 public startingTime;
-  uint256 public daiDecimal;
   uint256 public maxDaiPerInvestor;
   uint256 public maxDai;
   uint256 public totalDai;
@@ -37,11 +36,11 @@ contract PSDAPresale is Ownable, ReentrancyGuard {
   }
 
   constructor(
-    address _daiToken, //mainnet dai: 0x6B175474E89094C44Da98b954EedeAC495271d0F,  kovan dai: 0x4F96Fe3b7A6Cf9725f59d353F723c1bDb64CA6Aa
-    address _multiSig, //0x6693002C49AF6d485517A443650AB76B88298fE1
-    uint256 _startingTime, //1651190400
-    uint256 _maxDaiPerInvestor, //1000000
-    uint256 _maxDai, //3500000
+    address _daiToken,
+    address _multiSig,
+    uint256 _startingTime,
+    uint256 _maxDaiPerInvestor,
+    uint256 _maxDai,
     bytes32 _merkleRoot
   ) isValidAddress(_daiToken) isValidAddress(_multiSig) {
     daiToken = IERC20(_daiToken);
