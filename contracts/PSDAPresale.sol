@@ -70,6 +70,13 @@ contract PSDAPresale is Ownable, ReentrancyGuard {
     emit StartingTimeSet(_newTime);
   }
 
+  /**
+   * @dev External function to set starting time. This function can be called only by owner.
+   */
+  function setMultiSigAdddress(address _newAddress) external onlyOwner {
+    multiSig = _newAddress;
+  }
+
   function purchase(uint256 _amount, bytes32[] calldata _merkleProof)
     external
     payable
