@@ -7,7 +7,7 @@ import "@openzeppelin/contracts/utils/cryptography/MerkleProof.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 
-contract PSDAPresale is Ownable, ReentrancyGuard {
+contract PSDAPresaleMerkle is Ownable, ReentrancyGuard {
   using SafeERC20 for IERC20;
 
   /// @notice Event emitted when user purchased the tokens.
