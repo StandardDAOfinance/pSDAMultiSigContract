@@ -56,6 +56,10 @@ contract PSDAPresale is Ownable, ReentrancyGuard {
     startingTime = _newTime;
   }
 
+  function setTotalDai(uint256 _totalDai) external onlyOwner {
+    totalDai = _totalDai;
+  }
+
   /**
    * @dev External function to set starting time. This function can be called only by owner.
    */
