@@ -68,7 +68,11 @@ contract PSDAPresale is Ownable, ReentrancyGuard {
       "Exceeded max value to purchase"
     );
     require(totalDai + _amount <= maxDai, "Purchase would exceed max DAI");
-
+    require(_amount <= daiToken.balanceOf(msg.sender), "pSDA Presale: INSUFFICIENT TOKEN BALANCE");
+    require(
+      _amount <= daiToken.allowance(msg.sender, address(this)),
+      "pSDA Presale: INSUFFICIENT ALLOWANCE"
+    );
     daiToken.transferFrom(msg.sender, multiSig, _amount);
 
     presaleCounter[msg.sender] += _amount;
