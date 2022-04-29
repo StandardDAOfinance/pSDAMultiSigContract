@@ -6,4 +6,5 @@ module.exports = [
   BigNumber.from("1651190400").toBigInt(), // Starting Time
   BigNumber.from("1000000" + "000000000000000000").toBigInt(), // Max Dai Amount Per a Investor
   BigNumber.from("3500000" + "000000000000000000").toBigInt(), // Max Expected Amount Of DAI
+  BigNumber.from("500000" + "000000000000000000").toBigInt(), // Sold Amount Of DAI
 ]

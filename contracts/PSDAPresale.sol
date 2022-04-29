@@ -33,13 +33,15 @@ contract PSDAPresale is Ownable, ReentrancyGuard {
     address _multiSig,
     uint256 _startingTime,
     uint256 _maxDaiPerInvestor,
-    uint256 _maxDai
+    uint256 _maxDai,
+    uint256 _totalDai
   ) isValidAddress(_daiToken) isValidAddress(_multiSig) {
     daiToken = IERC20(_daiToken);
     multiSig = _multiSig;
     maxDaiPerInvestor = _maxDaiPerInvestor;
     startingTime = _startingTime;
     maxDai = _maxDai;
+    totalDai = _totalDai;
   }
 
   modifier callerIsUser() {

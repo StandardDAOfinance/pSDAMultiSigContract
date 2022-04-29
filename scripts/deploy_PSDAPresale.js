@@ -13,7 +13,8 @@ async function main() {
     "0x2155bcea4f362d5d9ce67817b826a8f31b61d0bf", // Multi Sig Address: 0x6693002C49AF6d485517A443650AB76B88298fE1
     BigNumber.from("1651190400").toBigInt(), // Starting Time
     BigNumber.from("1000000" + "000000000000000000").toBigInt(), // Max Dai Amount Per a Investor
-    BigNumber.from("3500000" + "000000000000000000").toBigInt() // Max Expected Amount Of DAI
+    BigNumber.from("3500000" + "000000000000000000").toBigInt(), // Max Expected Amount Of DAI
+    BigNumber.from("500000" + "000000000000000000").toBigInt() // Sold Amount Of DAI
   )
   console.log("Transaction Hash:", pSDAPresale.deployTransaction.hash)
   await pSDAPresale.deployed()
